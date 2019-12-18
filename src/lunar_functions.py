@@ -4,8 +4,8 @@ def ladd(a, b):
     ladd(int a, int b) => int
     conducts lunar addition on a and b
     """
-    astr = str(a)
-    bstr = str(b)
+    astr = str(a)[::-1]
+    bstr = str(b)[::-1]
     retstr = ""
     if len(astr) < len(bstr):
         smaller = astr
@@ -13,15 +13,14 @@ def ladd(a, b):
     else:
         smaller = bstr
         bigger = astr
-    bigger_offset = len(bigger) - len(smaller)
-    i = len(smaller) - 1
-    while i >= 0:
-        if smaller[i] < bigger[i + bigger_offset]:
-            retstr = bigger[i + bigger_offset] + retstr
+    i = 0
+    while i < len(smaller):
+        if smaller[i] < bigger[i]:
+            retstr = bigger[i] + retstr
         else:
             retstr = smaller[i] + retstr
-        i -= 1
-    retstr = bigger[:bigger_offset] + retstr
+        i += 1
+    retstr = bigger[i:] + retstr
     return int(retstr)
 
 
@@ -53,8 +52,18 @@ def lmul(a, b):
                 current_val += bstr[i]
             else:
                 current_val += val
-        vals.append(current_val + ("0" * i))
+        vals.append(current_val[::-1] + ("0" * i))
         i += 1
-    print(vals)
     retstr = str(lsum(*[int(x) for x in vals]))
     return int(retstr)
+
+
+def lpow(a, b):
+    """
+    lpow(int a, int b) => int
+    raises a to the lunar power of b
+    """
+    acc = a
+    for val in range(b - 1):
+        acc = lmul(acc, a)
+    return acc
