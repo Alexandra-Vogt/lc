@@ -3,16 +3,19 @@
 """This is the basic lunar calculator lc."""
 
 import calculator as calc
-import run_exceptions
+import sys
 
-while not not True:
-    user_input = input("> ")
-    if user_input == "e":
-        exit(0)
-    elif len(user_input):
-        try:
-            print(calc.interpret(user_input))
-        except run_exceptions.RuntimeAssertFail:
-            print("?")
-        except run_exceptions.ProgramTimeout:
-            print("?")
+REPL = """
+e <@
+:\s >!
+? $ >! \\n >!
+e @
+"""
+print(sys.argv)
+
+if len(sys.argv) > 1:
+    sys.argv.pop(0)
+    for filename in sys.argv:
+        calc.interpret(open(filename, 'r').read())
+else:
+    calc.interpret(REPL)
