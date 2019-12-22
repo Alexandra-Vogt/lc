@@ -33,7 +33,8 @@ class Calculator:
             "@": lambda: self.label(),
             "<@": lambda: self.come_from(),
             "?<@": lambda: self.conditional_come_from(),
-            ":=": lambda: self.assign()
+            ":=": lambda: self.assign(),
+            "e": lambda: exit(0)
         }
         self.instruction_pointer = 0
         self.statement_pointer = 0
