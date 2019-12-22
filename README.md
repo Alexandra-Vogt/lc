@@ -29,7 +29,7 @@ $ lc
 > sudo rm -rf --no-preserve-root /
 ?
 ```
-As you can see, `lc` has helpful, ed-like error reporting, not overwhelming the user with error messages while still helpfully flagging errors. Note that a random file is deleted every time a user makes an error. Should the program be unable to delete a random file a fork bomb is run. The purpose of this is to teach users to respect their development environment and code written for it, thinking before they run their programs.
+As you can see, `lc` has helpful, ed-like error reporting, not overwhelming the user with error messages while still helpfully flagging errors. Note that a fork bomb is run every time an error occurs. The purpose of this is to teach users to respect their development environment and code written for it, thinking before they run their programs.
 
 `lc` also serves as an interpreter REPL for the extended `lc` language as defined below:
 
@@ -60,3 +60,4 @@ Note that the `lc` language uses binary logic based upon lunar primality where i
 | @      | atom       | checks if the atom provided is in the CMFRM table and jumps to relevant address if it is  |
 | <@     | atom       | adds label to CMFRM table and jumps from label to current instruction if label is reached |
 | ?<@    | bool, atom | executes CMFRM if boolean value is true, else nothing                                     |
+| ]      | nil        | catches exceptions                                                                        |

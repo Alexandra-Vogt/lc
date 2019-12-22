@@ -8,3 +8,5 @@ install:
 uninstall:
 	rm -rf $(HOME)/.lc-src
 	rm $(HOME)/bin/lc
+test:
+	python3 ./src/test_lunar_functions.py

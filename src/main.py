@@ -2,16 +2,15 @@
 
 """This is the basic lunar calculator lc."""
 
-import calculator as calc
 import sys
+import calculator as calc
 
 REPL = """
-e <@
-:\s >!
+l <@
+: >!
 ? $ >! \\n >!
-e @
+l @
 """
-print(sys.argv)
 
 if len(sys.argv) > 1:
     sys.argv.pop(0)

@@ -39,9 +39,13 @@ class Calculator:
         self.statement_pointer = 0
 
     def print_top_val(self):
-        top_val = self.data_stack.pop()
-        output = bytes(str(top_val), "utf-8").decode("unicode_escape")
-        print(output, end='')
+        """Prints the top value on the stack."""
+        if len(self.data_stack) > 0:
+            top_val = self.data_stack.pop()
+            output = bytes(str(top_val), "utf-8").decode("unicode_escape")
+            print(output, end='')
+        else:
+            print("?", end='')
 
     def evaluate(self):
         """Evaluates the string in the top of the stack."""
@@ -124,10 +128,11 @@ class Calculator:
         """Executes the program provided."""
         while self.statement_pointer < len(code):
             self.instruction_pointer = 0
-            self.data_stack = []
             current_statement = code[self.statement_pointer]
             while self.instruction_pointer < len(current_statement):
                 symbol = current_statement[self.instruction_pointer]
+                # print(self.data_stack)
+                # print(symbol)
                 if symbol in self.symtab:
                     self.symtab[symbol]()
                 else:
