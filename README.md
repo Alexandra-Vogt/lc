@@ -50,8 +50,6 @@ Note that the `lc` language uses binary logic based upon lunar primality where i
 | +      | int, int   | conducts lunar addition of the ints                                                       |
 | *      | int, int   | conducts lunar multiplication of of the ints                                              |
 | ^      | int, int   | raises the first int to the lunar power of the second int                                 |
-| >      | int, int   | returns true if the first int is greater than the second int                              |
-| <      | int, int   | returns true if the second int is greater than the first int                              |
 | ?      | nil        | requests user input                                                                       |
 | >!     | int        | prints the top value on the stack                                                         |
 | :=     | atom, val  | places val as equal to the atom provided                                                  |
