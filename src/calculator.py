@@ -131,7 +131,10 @@ class Calculator:
             while self.instruction_pointer < len(current_statement):
                 symbol = current_statement[self.instruction_pointer]
                 if symbol in self.symtab:
-                    self.symtab[symbol]()
+                    try:
+                        self.symtab[symbol]()
+                    except RuntimeAssertFail:
+                        self.data_stack.append("?")
                 else:
                     self.data_stack.append(symbol)
                 self.instruction_pointer += 1

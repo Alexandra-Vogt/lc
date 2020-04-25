@@ -12,12 +12,12 @@ l <@
 l @
 """
 
-try:
-    if len(sys.argv) > 1:
-        sys.argv.pop(0)
-        for filename in sys.argv:
-            calc.interpret(open(filename, 'r').read())
-    else:
+if len(sys.argv) > 1:
+    sys.argv.pop(0)
+    for filename in sys.argv:
+        calc.interpret(open(filename, 'r').read())
+else:
+    try:
         calc.interpret(REPL)
-except:
-    print("?")
+    except EOFError:
+        calc.interpret(REPL)

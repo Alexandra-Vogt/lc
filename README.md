@@ -3,6 +3,8 @@
 
 Have you ever wished you had a command line calculator that could do all of your important base 10 lunar arithmetic based accounting?
 
+https://arxiv.org/abs/1107.1130
+
 Well now you can have one with the popular command line utility `lc`. Using `lc` you can accurately and quickly do lunar addition, multiplication, and exponentiation all in the command line as well as execute complex, next generation code based in lunar arithmetic.
 
 Here is an example of a usual user session:
@@ -44,18 +46,54 @@ For further details on conditionals and boolean values, view the "Boolean Logic"
 ### Boolean Logic:
 Note that the `lc` language uses binary logic based upon lunar primality where if a number is a decimal lunar prime it is true, else it is false. Lunar primes are the set of all numbers that contain the character '9' in their decimal representation. Thus 19 1999 9 92 29 and other values are considered to be equivalent to true by the language, whereas 1, 2, 3, 5, 7, 13 and so on are not true since they are all composite numbers.
 
+### Arrays
+To define an array in `lc` use the .. syntax. Arrays are simply 
+
+### Symbolic Cells
+Symbolic cells in the `lc` language are defined using the symbolic cell start marker (`{`) function which raises the symcell flag, telling the interpreter to, instead of evaluating the symbols following it, create a symbolic cell from those symbols and upon reaching the symbolic cell end marker (`}`) push the resulting symbolic cell to the stack.
+
+### Eval
+Loved by security experts, eval is an essential feature in the `lc` language
+
+#### Recursive Eval
+One feature of eval in the `lc` language is that it can be used to implement recursive functions through the clever usage of symbolic cells. For example:
+```
+\\ function takes two arguments, the target value and the start value //
+{ tgt :=
+  srt :=
+  hello !>  a ?$
+  nsrt srt 2 ^ := 
+  nsrt tgt < { nsrt tgt a $} ?$
+} a :=
+22 300 a $
+```
+This function will print "hello" until such a point is reached that the starting value raised to the power of two is greater than the starting value.
+
 ### Symbol Reference Table:
-| symbol | args       | description                                                                               |
-|:-------|:-----------|:------------------------------------------------------------------------------------------|
-| +      | int, int   | conducts lunar addition of the ints                                                       |
-| *      | int, int   | conducts lunar multiplication of of the ints                                              |
-| ^      | int, int   | raises the first int to the lunar power of the second int                                 |
-| ?      | nil        | requests user input                                                                       |
-| >!     | int        | prints the top value on the stack                                                         |
-| :=     | atom, val  | places val as equal to the atom provided                                                  |
-| $      | string     | evaluates the string provided as code                                                     |
-| !%     | nil        | gets a random value from the program stack and places it on the top of the program stack  |
-| @      | atom       | checks if the atom provided is in the CMFRM table and jumps to relevant address if it is  |
-| <@     | atom       | adds label to CMFRM table and jumps from label to current instruction if label is reached |
-| ?<@    | bool, atom | executes CMFRM if boolean value is true, else nothing                                     |
-| ]      | nil        | catches exceptions                                                                        |
+| symbol | args         | description                                                                                                                           |
+|:-------|:-------------|:--------------------------------------------------------------------------------------------------------------------------------------|
+| +      | int, int     | conducts lunar addition of the ints                                                                                                   |
+| *      | int, int     | conducts lunar multiplication of of the ints                                                                                          |
+| ^      | int, int     | raises the first int to the lunar power of the second int                                                                             |
+| ?      | nil          | requests user input                                                                                                                   |
+| =      | val, val     | compares two values on the stack, places true on the stack if true, else false                                                        |
+| \=     | val, val     | compares two values on the stack, places true on the stack if true, else false                                                        |
+| >      | int, int     | compares two ints and returns true if the first int is greater than the second                                                        |
+| <      | int, int     | compares two ints and returns true if the first int is lesser than the second                                                         |
+| v      | bool, bool   | returns true if either of its arguments are true                                                                                      |
+| &      | bool, bool   | returns true if both of its arguments are true                                                                                        |
+| ~      | bool         | returns true if the bool is false, else returns false                                                                                 |
+| :=     | val, atom    | places val as equal to the atom provided                                                                                              |
+| $      | string       | evaluates the string provided as code                                                                                                 |
+| ?$     | bool, string | evaluates the string provided as code should the bool be true                                                                         |
+| @      | atom         | checks if the atom provided is in the CMFRM table and jumps to relevant address if it is                                              |
+| <@     | atom         | adds label to CMFRM table and jumps from label to current instruction if label is reached                                             |
+| ?<@    | bool, atom   | executes CMFRM if boolean value is true, else nothing                                                                                 |
+| !%     | nil          | gets a random value from the program stack and places it on the top of the program stack                                              |
+| !>     | int          | prints the top value on the stack                                                                                                     |
+| !#     | int, int     | swaps two values on the stack given their offsets from the top of the stack                                                           |
+| {      | nil          | raises the symcell flag, initiating creation of a symbolic cell                                                                       |
+| }      | nil          | lowers the symcell flag, pushes created symcell (if any) to top of stack                                                              |
+| ]      | int          | defines an array of length n from a number of values preceding it on the program stack and places a pointer to the array on the stack |
+| ]#     | array, int   | retrieves the nth value from an array                                                                                                 |
+|        |              |                                                                                                                                       |
