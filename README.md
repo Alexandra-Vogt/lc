@@ -46,28 +46,8 @@ For further details on conditionals and boolean values, view the "Boolean Logic"
 ### Boolean Logic:
 Note that the `lc` language uses binary logic based upon lunar primality where if a number is a decimal lunar prime it is true, else it is false. Lunar primes are the set of all numbers that contain the character '9' in their decimal representation. Thus 19 1999 9 92 29 and other values are considered to be equivalent to true by the language, whereas 1, 2, 3, 5, 7, 13 and so on are not true since they are all composite numbers.
 
-### Arrays
-To define an array in `lc` use the .. syntax. Arrays are simply 
-
-### Symbolic Cells
-Symbolic cells in the `lc` language are defined using the symbolic cell start marker (`{`) function which raises the symcell flag, telling the interpreter to, instead of evaluating the symbols following it, create a symbolic cell from those symbols and upon reaching the symbolic cell end marker (`}`) push the resulting symbolic cell to the stack.
-
 ### Eval
 Loved by security experts, eval is an essential feature in the `lc` language
-
-#### Recursive Eval
-One feature of eval in the `lc` language is that it can be used to implement recursive functions through the clever usage of symbolic cells. For example:
-```
-\\ function takes two arguments, the target value and the start value //
-{ tgt :=
-  srt :=
-  hello !>  a ?$
-  nsrt srt 2 ^ := 
-  nsrt tgt < { nsrt tgt a $} ?$
-} a :=
-22 300 a $
-```
-This function will print "hello" until such a point is reached that the starting value raised to the power of two is greater than the starting value.
 
 ### Symbol Reference Table:
 | symbol | args         | description                                                                                                                           |
@@ -92,8 +72,3 @@ This function will print "hello" until such a point is reached that the starting
 | !%     | nil          | gets a random value from the program stack and places it on the top of the program stack                                              |
 | !>     | int          | prints the top value on the stack                                                                                                     |
 | !#     | int, int     | swaps two values on the stack given their offsets from the top of the stack                                                           |
-| {      | nil          | raises the symcell flag, initiating creation of a symbolic cell                                                                       |
-| }      | nil          | lowers the symcell flag, pushes created symcell (if any) to top of stack                                                              |
-| ]      | int          | defines an array of length n from a number of values preceding it on the program stack and places a pointer to the array on the stack |
-| ]#     | array, int   | retrieves the nth value from an array                                                                                                 |
-|        |              |                                                                                                                                       |

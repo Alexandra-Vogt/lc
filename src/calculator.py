@@ -27,18 +27,23 @@ class Calculator:
             "=": lambda: self.dyadic(lambda a, b: a == b),
             ">": lambda: self.dyadic(lambda a, b: a > b),
             "<": lambda: self.dyadic(lambda a, b: a < b),
+            "v": lambda: self.dyadic(lf.llogic_or),
+            "&": lambda: self.dyadic(lf.llogic_and),
             "?": lambda: self.read_input(),
             ">!": lambda: self.print_top_val(),
+            ">#": lambda: self.swap_top_vals(),
+            ">%": lambda: self.random_from_stack(),
             "$": lambda: self.evaluate(),
             "@": lambda: self.label(),
             "<@": lambda: self.come_from(),
+            "]#": lambda: self.nth_from_list(),
             "?<@": lambda: self.conditional_come_from(),
             ":=": lambda: self.assign(),
             "e": lambda: exit(0)
         }
         self.instruction_pointer = 0
         self.statement_pointer = 0
-
+        
     def print_top_val(self):
         """Prints the top value on the stack."""
         if len(self.data_stack) > 0:
@@ -49,15 +54,11 @@ class Calculator:
     def evaluate(self):
         """Evaluates the string in the top of the stack."""
         program = self.data_stack.pop()
-        code = []
-        statements = program.split('\n')
-        for statement in statements:
-            code.append(statement.split(' '))
         sp = self.statement_pointer
         ip = self.instruction_pointer
         self.statement_pointer = 0
         self.instruction_pointer = 0
-        self.execute(code)
+        self.execute(program)
         self.statment_pointer = sp
         self.instruction_pointer = ip
 
@@ -71,7 +72,7 @@ class Calculator:
         """Adds the current instruction position and target label to the
         comefrom_tab if the second argument is true. Once the target symbol
         is reached the instruction counter is set to the relevant value"""
-        if "9" in self.data_stack.pop():
+        if "9" in str(self.data_stack.pop()):
             self.comefrom_tab[self.data_stack.pop()] = self.statement_pointer
 
     def assign(self):
@@ -90,7 +91,10 @@ class Calculator:
 
     def read_input(self):
         """Gets input from user and places it on the top of the stack."""
-        self.data_stack.append(input())
+        try:
+            self.data_stack.append(input())
+        except:
+            self.data_stack.append("\n?")
 
     def dyadic(self, function):
         """Wrapper for dyadic functions."""
@@ -123,8 +127,16 @@ class Calculator:
                 "error, invalid symbol reached during execution",
             )
 
-    def execute(self, code):
+    def parse(self, program):
+        """This parses the program and converts it into code for the vm."""
+        code = []
+        for line in program.split("\n"):
+            code.append(line.split(" "))
+        return code
+
+    def execute(self, program):
         """Executes the program provided."""
+        code = self.parse(program)
         while self.statement_pointer < len(code):
             self.instruction_pointer = 0
             current_statement = code[self.statement_pointer]
@@ -141,13 +153,6 @@ class Calculator:
             self.statement_pointer += 1
 
 
-def parse(program):
-    """This parses the program and converts it into code for the vm."""
-    code = []
-    statements = program.split('\n')
-    for statement in statements:
-        code.append(statement.split(' '))
-    return code
 
 
 def interpret(program):
@@ -155,6 +160,6 @@ def interpret(program):
     interpret(str program) => str result
     executes the program on the virtual machine and returns the result
     """
-    code = parse(program)
+    virtual_machine = Calculator
     virtual_machine = Calculator()
-    return virtual_machine.execute(code)
+    return virtual_machine.execute(program)

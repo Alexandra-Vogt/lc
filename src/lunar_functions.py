@@ -67,3 +67,31 @@ def lpow(a, b):
     for val in range(b - 1):
         acc = lmul(acc, a)
     return acc
+
+
+def llogic_is_true(a):
+    return "9" in str(a)
+
+
+def llogic_and(a, b):
+    """
+    llogic_and(int a, int b) => int
+    Returns 9 if both arguments a and b contain nine in their
+    decimal representation. Else returns 1.
+    """
+    if llogic_is_true(a) and llogic_is_true(b):
+        return "9"
+    else:
+        return "1"
+
+
+def llogic_or(a, b):
+    """
+    llogic_and(int a, int b) => int
+    Returns 9 if both arguments a and b contain nine in their
+    decimal representation. Else returns 1.
+    """
+    if llogic_is_true(a) or llogic_is_true(b):
+        return "9"
+    else:
+        return "1"
